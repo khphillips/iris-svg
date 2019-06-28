@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-container>
+      <v-layout row wrap>
+        <v-flex xs12 sm4>
+          <h2>Controls</h2>
+          <v-slider name="name" label="Number of Points" thumb-label="always" max="360" v-model="numPoints" ></v-slider>
+          <v-slider name="name" step=".25" thumb-label="always" max="30" label="Multiplier" v-model="multiplier" ></v-slider>
+          <v-slider name="name" step="1" thumb-label="always" max="300" label="Radius" v-model="radius" ></v-slider>
+        </v-flex>
+        <v-flex xs12 sm8 text-xs-center>
+          <iris-svg :num-points="numPoints" :radius="radius" :multiplier="multiplier"></iris-svg>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import IrisSvg from './components/IrisSvg'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    IrisSvg
+  },
+  data () {
+    return {
+      numPoints : 180,
+      multiplier : 2,
+      radius : 200,
+    }
+  },
+  computed : {
+    
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
