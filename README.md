@@ -3,7 +3,9 @@
 
 ## Demo
 
-[Demo](https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/) https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/(https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/)
+[Demo](https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/)
+
+[https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/](https://www.paleosun.com/blog/entry/dynamic-svg-images-with-vue/)
 
 ## Project setup
 ```
