@@ -7,10 +7,12 @@
           <v-slider name="name" label="Number of Points" thumb-label="always" max="360" v-model="numPoints" ></v-slider>
           <v-slider name="name" step=".25" thumb-label="always" max="30" label="Multiplier" v-model="multiplier" ></v-slider>
           <v-slider name="name" step="1" thumb-label="always" max="300" label="Radius" v-model="radius" ></v-slider>
+          <v-btn @click="play">Play</v-btn>
         </v-flex>
         <v-flex xs12 sm8 text-xs-center>
-          <iris-svg :num-points="numPoints" :radius="radius" :multiplier="multiplier"></iris-svg>
+          <iris-svg ref="svg" :num-points="numPoints" :radius="radius" :multiplier="multiplier"></iris-svg>
         </v-flex>
+        {{ $refs.playing }}
       </v-layout>
     </v-container>
   </v-app>
@@ -33,6 +35,11 @@ export default {
   },
   computed : {
     
+  },
+  methods: {
+    play : function(){
+      this.$refs.svg.play();
+    }
   }
 }
 </script>

@@ -2,7 +2,8 @@
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 400" xml:space="preserve" :style="getResponsiveStyle">
     <circle :r="radius" cx="200" cy="200" class="circle"></circle>
     <circle v-for="i in numPoints" r="2" :cx="radial_points(i).x" :cy="radial_points(i).y" class="circle"></circle>
-    <line v-for="line in lines" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line" />
+    <line v-if="!playing" v-for="line in lines" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line" />
+    <line v-if="playing" v-for="line in playing_lines" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" class="line" />
   </svg>
 </template>
 
@@ -13,6 +14,9 @@
     props : ['radius', 'numPoints', 'multiplier'],
     data: () => ({
       //radius : 190
+      playing : false,
+      anim_lines : 0,
+      timeline : null
     }),
     methods : {
       radial_points : function(i){
@@ -38,6 +42,22 @@
         var newY = (radius * Math.sin(angleRadians) + originY);
         return {"x" : newX, "y" : newY}
       },
+      play : function(){
+        var g = this;
+        clearInterval(this.timeline)
+        this.anim_lines = 0
+        this.playing = true;
+        var num_lines = this.lines.length;
+
+        this.timeline = setInterval(function(){
+          if (g.anim_lines >= num_lines){
+            clearInterval(g.timeline)
+            g.playing = false;
+          }else{
+            g.anim_lines++;
+          }
+        }, 25)
+      }
     },
     computed : {
       //creates an array of line points used for drawing. 
@@ -57,6 +77,13 @@
           i++;
         }
         return r;
+      },
+      playing_lines : function(){
+        if (this.anim_lines.length >= this.lines.length){
+          this.playing = false;
+          clearInterval(this.timeline)
+        }
+        return this.lines.slice(0, this.anim_lines);
       },
       getResponsiveStyle : function(){
         if (this.$vuetify.breakpoint.name != 'xs'){
